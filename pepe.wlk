@@ -1,11 +1,11 @@
 object pepe {
-	var sueldo
+	var sueldo = 0
 
-    var categoria
+    var property categoria
 
     var ausentes = 0
 
-    var resultado
+    var property resultado
 }
 
 object gerente {
@@ -17,14 +17,14 @@ object cadete {
 }
 
 object bonoPorResultados {
-    var porcentaje
-    var montoFijo
+    var property porcentaje
+    var property montoFijo
 }
 
 object bonoPorPresentismo {
-    var normal
-    var ajuste
-    var demagogico
-    
+    var property normal
+    var property ajuste
+    var property demagogico
+
 }
  
