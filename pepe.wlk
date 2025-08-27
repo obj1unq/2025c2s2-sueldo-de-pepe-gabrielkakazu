@@ -1,69 +1,192 @@
 object pepe {
-	var sueldo = 0
-    var property ausentes = 0
-    var categoria
-    var property resultado
+    var ausentes = 0
+    var categoria = cadete
+    var bonoResultados = bonoPorcentaje
+    var bonoPorPresentismo = null
 
-    method categoria(_categoria){
+    method categoria(_categoria) {
         categoria = _categoria
         _categoria.puesto(self)
     }
+    method categoria() = categoria
+
+    method bonoResultados(_bono) {
+        bonoResultados = _bono
+    }
+    method bonoResultados() = bonoResultados
+
+    method ausentes() { return ausentes }
 
     method diaAusente() {
         ausentes += 1
     }
+
     method sueldo() {
-        return categoria.neto() + bonoPorResultado + bonoPorPresentismo
+        return categoria.neto() 
+            + bonoResultados.monto(self) 
+           // + bonoPorPresentismo.monto(self)
+    }
+
+    method bonoPorPresentismo() = bonoPorPresentismo 
+    method bonoPorPresentismo(_bono) {
+        bonoPorPresentismo = _bono
     }
 }
 
+// ------------------ Categorías ------------------
 object gerente {
-    var property neto = 150000    
-    method.neto {return neto}
-    var puesto
+    var neto = 150000    
+    var puesto = null
+
+    method neto() { return neto }
+
     method puesto(_empleado) {
         puesto = _empleado
     }
 }
 
 object cadete {
-    var property neto = 20000
-    method.neto {return neto}
+    var neto = 20000
+    var puesto = null
 
-        var puesto
+    method neto() { return neto }
+
     method puesto(_empleado) {
         puesto = _empleado
     }
 }
 
+// ------------------ Bonos por Resultados ------------------
+
+object bonoPorcentaje {
+    var porcentaje = 0.1
+    method monto(empleado) {
+        return porcentaje * empleado.categoria().neto()
+    }
+}
+
+object bonoFijo {
+    const fijo = 800
+    method monto(empleado) {
+        return fijo
+    }
+}
+
+object bonoNulo {
+    const nulo = 0
+    method monto(empleado) {return 0}
+}
+
+// ------------------ Bono por Presentismo ------------------
+/*
+object presentismoNormal {
+    method monto(empleado) {
+        if (empleado.ausentes() == 0) then { 2000 }
+        else if (empleado.ausentes() == 1) then { 1000 }
+        else { 0 }
+    }
+}
+
+object presentismoDemagogico {
+    method monto(empleado) {
+        if (empleado.categoria().neto() < 18000) then { 500 }
+        else { 300 }
+    }
+}
+
+object presentismoNulo {
+    method monto(empleado) {return 0}
+}
+
+*/
+
+
+
+
+
+/* object pepe {
+    var ausentes = 0
+    var categoria = cadete
+    var bono = bonoPorResultados.porcentaje(categoria)
+
+    method categoria(_categoria) {
+        categoria = _categoria
+        _categoria.puesto(self)
+    }
+
+    method bono() = bono
+    method bono(_bono) {
+        bono = _bono
+    }
+
+    method ausentes() {return ausentes}
+
+    method diaAusente() {
+        ausentes += 1
+    }
+
+    method sueldo() {
+        return categoria.neto() + bono
+        //+ bonoPorPresentismo.normal(self)
+    }
+}
+
 object bonoPorResultados {
     var porcentaje = 0.1
-    var property montoFijo = 800
+    const fijo = 800
     method porcentaje(categoria) {
         return porcentaje * categoria.neto()
     }
-    method porcenta(_porcentaje) {
+    method porcentaje(_porcentaje) {
         porcentaje = _porcentaje
     }
 
+    method fijo(categoria) {
+        return fijo
+    }
+
+} 
+object gerente {
+    var neto = 150000    
+    var puesto = null
+
+    method neto() { 
+        return neto 
+    }
+
+    method puesto(_empleado) {
+        puesto = _empleado
+    }.
 }
 
+object cadete {
+    var neto = 20000
+    var puesto = pepe
+
+    method neto() {
+        return neto
+    }
+
+    method puesto(_empleado) {
+        puesto = _empleado
+    }
+}
+/*
 object bonoPorPresentismo {
-    var property nulo = 0
-
-    method normal(empleado){
-        if (empleado.ausentes == 0) then {2000}
-        else if (empleado.ausentes == 1 ) then {1000}
-        else {0}
+    method normal(empleado) {
+        if (empleado.ausentes == 0) then { return 2000 }
+        else if (empleado.ausentes == 1) then {return 1000 }
+        else {return 0 }
     }
 
-    var ajuste(empleado) {
-        if (empleado.ausentes == 0) then {100}
-        else {0}
+    method ajuste(empleado) {
+        if (empleado.ausentes == 0) then {return 100 }
+        else {return 0 }
     }
-    var demagogico(empleado) {
-        if (empleado.neto < 18000) then {500}
-        else {300}
+
+    method demagogico(empleado) {
+        if (empleado.categoria.neto() < 18000) then {return 500 }
+        else {return 300 }
     }
-}
- 
+} */
+
