@@ -1,10 +1,55 @@
 import pepe.*
 
-describe "Sueldo Pepe" {
-	
-	test "Test 1" {
-		//TODO: Implementame
+describe "Sueldo Pepe" {	
+	test "Test 1 pepe cadete falton" {
+		pepe.setPuesto(cadete)
+		pepe.setPresentismo(presentismoNormal)
+		pepe.setBono(bonoFijo)
+		pepe.faltarDias(3)
+		console.println("cuantos días falto pepe?")
+		console.println(pepe.ausentes())
+		console.println("pepe cobra 20800?")
+		assert.equals(20800, pepe.sueldo()) }
+	}
+	/*1. Si pepe es cadete, 
+	tiene el bono resultado de monto fijo, 
+	y bono presentismo normal. Simular que faltó 3 días.
+	Debería tener $20800 de sueldo. */
+
+	test "Test 2 pepe gerente sin presentismo y bono porcentaje" {
+		/*Si pepe es gerente, 
+		tiene el bono resultado por porcentaje, 
+		y bono de presentismo nulo.
+		 El sueldo debe dar $16500.*/
+		 pepe.setPuesto(gerente)
+		 pepe.setBono(bonoPorcentaje)
+		 pepe.setPresentismo(presentismoNulo)
+		 assert.equals(16500, pepe.sueldo())
 	}
 
+	test "Test 3 pepe cadete bono porcentaje y presentismo normal sin ausentes" {
+		pepe.setPuesto(cadete)
+		pepe.setPresentismo(presentismoNormal)
+		pepe.setBono(bonoPorcentaje)
+		pepe.faltarDias(0)
+		console.println("Cuantos dias faltó pepe?")
+		console.println(pepe.ausentes())
+		console.println("pepe cobra 24000")
+		assert.equals(24000, pepe.sueldo())
+	}
+		/* Si pepe es cadete,  
+		tiene bono de resultados por porcentaje, 
+		bono por presentismo normal, 
+		nunca faltó. Debería tener $24000 de sueldo.
+		*/
 	
-}
+	test "Test 4 pepe cadete ídem arriba pero 1 ausente" {
+		pepe.setPuesto(cadete)
+		pepe.setPresentismo(presentismoNormal)
+		pepe.setBono(bonoPorcentaje)
+		pepe.faltarDias(1)
+		console.println("Cuantos dias faltó pepe?")
+		console.println(pepe.ausentes())
+		console.println("pepe cobra 23000")
+		assert.equals(23000, pepe.sueldo())
+	}
