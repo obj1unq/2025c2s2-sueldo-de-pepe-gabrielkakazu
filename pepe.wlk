@@ -77,7 +77,39 @@ object presentismoNulo {
     method monto(empleado) = 0
 }
 
+// ***** PERSONAS ****
 
+object sofia {
+    var puesto = cadete
+    var presentismo = presentismoDemagogico
+    var ausentes = 0
+   
+    var bono = bonoNulo
+
+    method setBono(_bono) {
+        bono = _bono
+    } //setter
+
+    method sueldoNeto() = puesto.monto()* 1.3
+
+    method ausentes() = ausentes
+
+    method faltarDias(cantidad) {
+        ausentes += cantidad
+    }
+    method puesto() = puesto //getter
+    method setPuesto(_puesto) {
+        puesto = _puesto
+    }
+
+    method setPresentismo(_presentismo) {
+        presentismo = _presentismo
+    }
+
+    method sueldo() {
+        return self.sueldoNeto() + bono.monto(self)
+    }
+}
 object pepe {
     var puesto = cadete
     var presentismo = presentismoDemagogico
