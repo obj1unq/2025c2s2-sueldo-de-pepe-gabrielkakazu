@@ -12,6 +12,24 @@ object cadete {
     method monto() = neto
 }
 
+object vendedor {
+    var neto = 16000
+    method monto() = neto
+    method activarAumentoPorMuchasVentas() {
+        neto = neto*1.25
+    }
+    method desactivarAumentoPorMuchasVentas() {
+        neto = 16000
+    }
+}
+
+object medioTiempo {
+    var neto = 0
+    method monto() = neto
+    method categoriaBase(categoria) {
+        neto = categoria.monto() * 0.5
+    }
+}
 
 // *** BONOS POR RESULTADOS ***
 object bonoPorcentaje {
@@ -151,6 +169,83 @@ object pepe {
     }
 }
 
+object roque {
+    var puesto = self
+    var presentismo = presentismoDemagogico
+    var ausentes = 0
+    const neto = 28000
+    var bono = bonoNulo
+
+
+    method setBono(_bono) {
+        bono = _bono
+    } //setter
+ 
+
+
+    method sueldoNeto() = puesto.monto()
+
+
+    method ausentes() = ausentes
+
+
+    method faltarDias(cantidad) {
+        ausentes += cantidad
+    }
+    method monto() = neto //getter
+    method setPuesto(_puesto) {
+        puesto = _puesto
+    }
+
+
+    method setPresentismo(_presentismo) {
+        presentismo = _presentismo
+    }
+
+
+    method sueldo() {
+        return self.sueldoNeto()
+                + 9000
+                + bono.monto(self)
+    }
+}
+
+object ernesto {
+    var compañero = self
+    var puesto = cadete
+    var presentismo = presentismoDemagogico
+    var ausentes = 0
+    var bono = bonoNulo
+
+    method setCompañero(_compañero) {
+        compañero = _compañero
+    }
+
+    method setBono(_bono) {
+        bono = _bono
+    } //setter
+ 
+    method sueldoNeto() = compañero.puesto().monto()
+
+    method ausentes() = ausentes
+
+    method faltarDias(cantidad) {
+        ausentes += cantidad
+    }
+    method puesto() = puesto //getter
+    method setPuesto(_puesto) {
+        puesto = _puesto
+    }
+
+    method setPresentismo(_presentismo) {
+        presentismo = _presentismo
+    }
+
+    method sueldo() {
+        return self.sueldoNeto()
+                + presentismo.monto(self)
+    }
+}
 
 
 
